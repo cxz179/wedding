@@ -1,0 +1,12 @@
+.font-20{
+    font-size: 20px;
+}
+.font-25{
+    font-size: 25px;
+}
+@mixin flex-box($direction,$caudex,$rachlet){
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $caudex;
+    align-items: $rachlet;
+}
