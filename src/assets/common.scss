@@ -4,9 +4,19 @@
 .font-25{
     font-size: 25px;
 }
-@mixin flex-box($direction,$caudex,$rachlet){
+.font-30{
+    font-size: 30px;
+}
+.font-35{
+    font-size: 35px;
+}
+.padding-top-20{
+    padding-top: 20px;
+}
+@mixin flex-box($direction,$caudex,$rachlet,$wrap){
     display: flex;
     flex-direction: $direction;
     justify-content: $caudex;
     align-items: $rachlet;
+    flex-wrap: $wrap;
 }
