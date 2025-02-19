@@ -35,15 +35,24 @@
             </div>
             <!-- 选项卡片 -->
             <div class="options">
-                <div class="container" v-for="item in 6" :key="item" @click="controls(item)">
-                    <div class="card1"></div>
-                    <div class="card2"></div>
-                    <div class="card3">
-                        * Card stacks are awesome and inspired by real card stack at your table.
+                <div class="container" v-for="(item,index) in optionsAll" :key="index" @click="controls(item)">
+                    <svg class="icon" aria-hidden="true">
+                        <use :xlink:href="item.item_icon"></use>
+                    </svg>
+                    <div class="card1">
+                        <p class="item-title font-20">{{ item.item_title }}</p>
+                        <p class="item-text font-15">{{ item.item_text }}</p>
                     </div>
                 </div>
             </div>
-
+            <!-- 备案信息 -->
+            <div class="footer">
+                <p>
+                    <img src="../assets/image/ga.png" alt="">
+                    蜀ICP备2024116639号
+                </p>
+                <p class="font-15">蜀ICP备2024116639号-1</p>
+            </div>
         </div>
     </div>
 </template>
@@ -51,9 +60,27 @@
 <script setup>
 import { disposePinia } from "pinia";
 import { ref, onMounted, onUnmounted, reactive } from "vue";
-const totalTime = ref('3天');
+const totalTime = ref('');
 const startTime = ref('2022-03-13 00:20:00')
 let timer = reactive()
+let optionsAll = reactive([
+    {
+        item_icon:'#icon-icon_invite',
+        item_title:'祝福语',
+        item_text:'💌写下对我们的祝福'
+    },
+    {
+        item_icon:'#icon-anzhouhangkeshijian',
+        item_title:'点点滴滴',
+        item_text:'💖记录你我生活'
+    },
+    {
+        item_icon:'#icon-xiangji',
+        item_title:'时光相册',
+        item_text:'🖼️留住你我记忆'
+    },
+    
+])
 const formatTime = () => {
     timer = setInterval(() => {
         const start = new Date(startTime.value).getTime();
@@ -68,7 +95,7 @@ const formatTime = () => {
 }
 const controls = (item) => {
     console.log(item);
-    
+
 }
 onMounted(() => {
     formatTime()
@@ -152,7 +179,7 @@ onUnmounted(() => {
         .top-row {
             width: 100%;
             padding: 20px 0;
-            @include flex-box(row, space-between, center,'');
+            @include flex-box(row, space-between, center, '');
 
             .arco-col {
                 flex: 1;
@@ -166,12 +193,12 @@ onUnmounted(() => {
         .people-icon {
             width: 100%;
             margin-top: 100px;
-            @include flex-box(row, center, center,'');
-
+            @include flex-box(row, center, center, '');
+            transform: perspective(1000);
             .icon-p {
                 width: 100px;
                 padding: 0 50px;
-                @include flex-box(column, '', center,'');
+                @include flex-box(column, '', center, '');
 
                 img {
                     width: 85px;
@@ -189,30 +216,36 @@ onUnmounted(() => {
                 height: 40px;
                 background-color: #da3848;
                 transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
                 position: relative;
                 animation: heartbeat 2s linear infinite;
+                -webkit-animation: heartbeat 2s linear infinite;
+                transform-origin: center center;
+                -webkit-transform-origin: center center;
 
-                &::before {
-                    content: '';
-                    width: 40px;
-                    height: 40px;
-                    position: absolute;
-                    top: 0;
-                    left: -20px;
-                    background-color: #da3848;
-                    border-radius: 50%;
-
-                }
-
+                &::before,
                 &::after {
                     content: '';
                     width: 40px;
                     height: 40px;
-                    position: absolute;
-                    top: -20px;
-                    left: 0;
                     background-color: #da3848;
                     border-radius: 50%;
+                    position: absolute;
+                    display: block;
+                }
+
+                &::before {
+                    top: 0;
+                    left: -20px;
+                    transform-origin: right center;
+                    -webkit-transform-origin: right center;
+                }
+
+                &::after {
+                    top: -20px;
+                    left: 0;
+                    transform-origin: center bottom;
+                    -webkit-transform-origin: center bottom;
                 }
             }
         }
@@ -232,41 +265,52 @@ onUnmounted(() => {
 
         .options {
             width: 100%;
-            @include flex-box(row, center, center,wrap);
-            gap: 120px 50px;
+            @include flex-box(row, center, center, wrap);
+            gap: 40px;
+            padding: 40px 0;
 
             .container {
-                position: relative;
-                margin-top: 60px;
-                width: 360px;
-
-                >* {
-                    width: 340px;
-                    height: 120px;
-                    border: solid 1px #bebebe;
-                    background-color: #1f1f1f;
-                    position: absolute;
-                    border-radius: 10px;
-                    padding: 10px;
-                    color: #fff;
-                    box-shadow: 0px 8px 20px -10px #bbbbbb;
-                    text-shadow: 0px 0px 5px #fff;
-                    letter-spacing: 1px;
-                    background-image: radial-gradient(circle 160px at 50% 120%, #353535, #1f1f1f);
+                width: 300px;
+                height: 120px;
+                box-sizing: border-box;
+                border: solid 1px #bebebe;
+                background-color: #1f1f1f;
+                border-radius: 10px;
+                padding: 10px 20px;
+                color: #fff;
+                box-shadow: 0px 8px 20px -10px #bbbbbb;
+                text-shadow: 0px 0px 5px #fff;
+                letter-spacing: 1px;
+                background-image: radial-gradient(circle 160px at 50% 120%, #353535, #1f1f1f);
+                @include flex-box(row, '', center, '');
+                gap: 0 30px;
+                &:hover {
+                    box-shadow: 0 0 20px #bbbbbb;
                 }
-
-                .card1 {
-                    width: 300px;
-                    margin: -20px 0px 0px 20px;
+                .item-title{
+                    margin-bottom: 15px;
                 }
-
-                .card2 {
-                    width: 320px;
-                    margin: -10px 0px 0px 10px;
+                .icon {
+                    width: 2.5em;
+                    height: 2.5em;
+                    vertical-align: -0.15em;
+                    fill: currentColor;
+                    overflow: hidden;
                 }
             }
         }
-
+        .footer{
+            width: 100%;
+            text-align: center;
+            color: #979696;
+            p{
+                margin-top: 15px;
+            }
+            img{
+                width: 17px;
+                height: 17px;
+            }
+        }
 
     }
 }
@@ -275,6 +319,7 @@ onUnmounted(() => {
     from {
         transform: translateY(0);
     }
+
     to {
         transform: translateY(-100vh);
     }
