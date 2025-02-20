@@ -4,14 +4,25 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import px2rem from 'postcss-px2rem'
+// 配置基本大小
+const postcss = px2rem({
+  // 基准大小 baseSize，需要和 rem.js中相同
+  remUnit: 16,
+})
 
 // https://vite.dev/config/
 export default defineConfig({
   base: './',
   css: {
     preprocessorOptions: {
-      additionalData: `@import "@/assets/common.scss";`
-    }
+      // scss:{
+      //   additionalData: `@import "@/assets/common.scss";`
+      // }
+    },
+    postcss: {
+      plugins: [postcss],
+    },
   },
   build: {
     outDir: 'dist',
@@ -51,4 +62,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  server:{
+    host:'0.0.0.0'
+  }
 })

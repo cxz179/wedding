@@ -2,7 +2,7 @@ import "@/assets/reset.css"
 import "@/utils/iconfont.js"
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
+// import "@/utils/rem";
 import App from './App.vue'
 import router from './router'
 

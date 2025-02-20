@@ -22,7 +22,7 @@
                     <img src="../assets/image/o5.webp" alt="">
                     <p>泡泡</p>
                 </div>
-                <div class="heart"></div>
+                <div class="heart-a"></div>
                 <div class="icon-p">
                     <img src="../assets/image/o5.webp" alt="">
                     <p>小张同志</p>
@@ -35,7 +35,7 @@
             </div>
             <!-- 选项卡片 -->
             <div class="options">
-                <div class="container" v-for="(item,index) in optionsAll" :key="index" @click="controls(item)">
+                <div class="container" v-for="(item, index) in optionsAll" :key="index" @click="controls(item)">
                     <svg class="icon" aria-hidden="true">
                         <use :xlink:href="item.item_icon"></use>
                     </svg>
@@ -65,21 +65,21 @@ const startTime = ref('2022-03-13 00:20:00')
 let timer = reactive()
 let optionsAll = reactive([
     {
-        item_icon:'#icon-icon_invite',
-        item_title:'祝福语',
-        item_text:'💌写下对我们的祝福'
+        item_icon: '#icon-icon_invite',
+        item_title: '祝福语',
+        item_text: '💌写下对我们的祝福'
     },
     {
-        item_icon:'#icon-anzhouhangkeshijian',
-        item_title:'点点滴滴',
-        item_text:'💖记录你我生活'
+        item_icon: '#icon-anzhouhangkeshijian',
+        item_title: '点点滴滴',
+        item_text: '💖记录你我生活'
     },
     {
-        item_icon:'#icon-xiangji',
-        item_title:'时光相册',
-        item_text:'🖼️留住你我记忆'
+        item_icon: '#icon-xiangji',
+        item_title: '时光相册',
+        item_text: '🖼️留住你我记忆'
     },
-    
+
 ])
 const formatTime = () => {
     timer = setInterval(() => {
@@ -194,10 +194,8 @@ onUnmounted(() => {
             width: 100%;
             margin-top: 100px;
             @include flex-box(row, center, center, '');
-            transform: perspective(1000);
+            box-sizing: border-box;
             .icon-p {
-                width: 100px;
-                padding: 0 50px;
                 @include flex-box(column, '', center, '');
 
                 img {
@@ -211,18 +209,18 @@ onUnmounted(() => {
                 }
             }
 
-            .heart {
+            .heart-a {
                 width: 40px;
                 height: 40px;
                 background-color: #da3848;
-                transform: rotate(45deg);
-                -webkit-transform: rotate(45deg);
+                transform: rotateZ(45deg);
+                -webkit-transform: rotateZ(45deg);
                 position: relative;
+                // flex-shrink: 0;  // 添加这行，防止在flex布局中被压缩
                 animation: heartbeat 2s linear infinite;
                 -webkit-animation: heartbeat 2s linear infinite;
-                transform-origin: center center;
-                -webkit-transform-origin: center center;
-
+                z-index: 1;
+                margin: 0 50px;
                 &::before,
                 &::after {
                     content: '';
@@ -231,21 +229,16 @@ onUnmounted(() => {
                     background-color: #da3848;
                     border-radius: 50%;
                     position: absolute;
-                    display: block;
                 }
 
                 &::before {
                     top: 0;
                     left: -20px;
-                    transform-origin: right center;
-                    -webkit-transform-origin: right center;
                 }
 
                 &::after {
                     top: -20px;
                     left: 0;
-                    transform-origin: center bottom;
-                    -webkit-transform-origin: center bottom;
                 }
             }
         }
@@ -284,12 +277,15 @@ onUnmounted(() => {
                 background-image: radial-gradient(circle 160px at 50% 120%, #353535, #1f1f1f);
                 @include flex-box(row, '', center, '');
                 gap: 0 30px;
+
                 &:hover {
                     box-shadow: 0 0 20px #bbbbbb;
                 }
-                .item-title{
+
+                .item-title {
                     margin-bottom: 15px;
                 }
+
                 .icon {
                     width: 2.5em;
                     height: 2.5em;
@@ -299,14 +295,17 @@ onUnmounted(() => {
                 }
             }
         }
-        .footer{
+
+        .footer {
             width: 100%;
             text-align: center;
             color: #979696;
-            p{
+
+            p {
                 margin-top: 15px;
             }
-            img{
+
+            img {
                 width: 17px;
                 height: 17px;
             }
@@ -344,6 +343,19 @@ onUnmounted(() => {
 
     100% {
         transform: scale(1) rotate(45deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .home-box .info-box .people-icon .icon-p img {
+        width: 70px !important;
+        height: 70px !important;
+        border-radius: 50%;
+    }
+
+    .top-row,
+    .last-text {
+        font-size: 15px;
     }
 }
 </style>
