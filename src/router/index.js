@@ -8,7 +8,21 @@ const routes = [
   {
     path:'/home',
     name:'home',
-    component:() => import('@/views/Home.vue')
+    component:() => import('@/views/Home.vue'),
+    redirect:{name:'accueil'},
+    children:[
+      {
+        path:'/accueil',
+        name:'accueil',
+        component: () => import('@/views/accueil.vue')
+      },
+      {
+        path:'/leaveMessage',
+        name:'leaveMessage',
+        component:() => import('@/views/leaveMessage.vue')
+      }
+
+    ]
   }
 ]
 const router = createRouter({

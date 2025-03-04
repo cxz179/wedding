@@ -1,5 +1,9 @@
+
 .font-15{
     font-size: 15px;
+}
+.font-18{
+    font-size: 18px;
 }
 .font-20{
     font-size: 20px;
@@ -13,8 +17,17 @@
 .font-35{
     font-size: 35px;
 }
+.font-bold{
+    font-weight: bold;
+}
 .padding-top-20{
     padding-top: 20px;
+}
+.margin-l-5{
+    margin-left: 5px;
+}
+.margin-l-10{
+    margin-left: 10px;
 }
 @mixin flex-box($direction,$caudex,$rachlet,$wrap){
     display: flex;
